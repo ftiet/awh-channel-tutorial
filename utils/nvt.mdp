@@ -1,0 +1,40 @@
+define                   = -DPOSRES
+
+constraints              = h-bonds
+integrator               = md
+dt                       = 0.001
+nsteps                   = 1000000
+nstxout                  = 20000
+nstlog                   = 10000
+nstenergy                = 1000
+nstlist                  = 20
+ns_type                  = grid
+nstxtcout                = 1000
+
+coulombtype              = PME
+rvdw                     = 1.1
+rlist                    = 1.1
+rcoulomb                 = 1.1
+fourierspacing           = 0.16
+cut-off-scheme           = group
+
+;vdw-modifier             = potential-shift
+;dispCorr                 = enerpres
+
+energygrps                = RES
+energygrp-excl            = RES RES
+freezegrps                = RES
+freezedim                 = Y Y Y
+
+pcoupl                   = no
+
+tcoupl                   = v-rescale 
+tc-grps                  = RES IL_SOL
+tau_t                    = 1 1
+ref_t                    = 300 300 
+
+gen-vel                  = yes
+gen-temp                 = 300
+gen-seed                 = 1337
+
+;periodic-molecules       = yes

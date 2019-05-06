@@ -1,0 +1,19 @@
+#!/bin/sh -l
+#PBS -l nodes=1:ppn=16
+#PBS -l walltime=96:00:00
+#PBS -q low
+#PBS -N awh
+#PBS -j oe
+#PBS -V
+#PBS -M hello@email.com
+#PBS -m abe
+
+cd $PBS_O_WORKDIR
+
+module load gromacs/2018.5
+
+gmx grompp -f nvt.mdp -c em.gro -r em.gro -p system.top -n system.ndx -o nvt.tpr -maxwarn 1
+gmx mdrun -v -deffnm nvt -nt 16
+
+gmx grompp -f awh.mdp -c nvt.gro -r nvt.gro -p system.top -n system.ndx -o awh.tpr -maxwarn 1
+gmx mdrun -v -deffnm awh -nt 16 -append -cpi awh.cpt 
